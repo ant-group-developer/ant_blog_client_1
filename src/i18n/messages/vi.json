@@ -1,5 +1,29 @@
 {
-  "UsersPage": {
-    "title": "Xin chào!"
+  "user":{
+    "title": "Quản lý người dùng",
+    "columns": {
+      "id": "Mã",
+      "email": "Email",
+      "created_at": "Ngày tạo",
+      "status": "Trạng thái"
+    },
+    "status": {
+      "active": "Hoạt động",
+      "inactive": "Không hoạt động"
+    }
+  },
+
+  "category": {
+    "title": "Quản lý danh mục",
+    "columns": {
+      "id": "Mã",
+      "name": "Tên danh mục",
+      "created_at": "Ngày tạo",
+      "slug": "Slug",
+      "order": "Thứ tự"
+    }
+  },
+  "actions": {
+    "switchLang": "Đổi ngôn ngữ"
   }
 }

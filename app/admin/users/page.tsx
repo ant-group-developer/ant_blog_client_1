@@ -10,12 +10,17 @@ import {
   ProTable,
 } from "@ant-design/pro-components";
 import { useQueryState } from "nuqs";
-import { startTransition, useMemo, useRef } from "react";
+import { startTransition, useContext, useMemo, useRef } from "react";
 import "@ant-design/v5-patch-for-react-19";
 import { Button, Popconfirm } from "antd";
 import { SquarePen, Trash } from "lucide-react";
+import { I18nContext } from "@/src/I18nProvider";
+import { useTranslations } from "next-intl";
 
 export default function UserPage() {
+  const { locale, switchLocale } = useContext(I18nContext);
+  const t = useTranslations();
+
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
   const [pageSize, setPageSize] = useQueryState(
     "pageSize",
@@ -36,42 +41,37 @@ export default function UserPage() {
 
   const columns: ProColumns<User>[] = [
     {
-      title: "ID",
+      title: t("user.columns.id"),
       dataIndex: "id",
       hideInSearch: true,
       hideInForm: true,
       width: 80,
     },
     {
-      title: "Email",
+      title: t("user.columns.email"),
       dataIndex: "email",
       key: "email",
     },
     {
-      title: "Created at",
+      title: t("user.columns.created_at"),
       dataIndex: "created_at",
       render: (_, entity) => entity.created_at.toLocaleDateString(),
       hideInSearch: true,
     },
     {
-      title: "Status",
+      title: t("user.columns.status"),
       dataIndex: "status",
-      valueEnum: {
-        true: {
-          text: "Active",
-          status: "True",
-        },
-        false: {
-          text: "Inactive",
-          status: "False",
-        },
-      },
       hideInSearch: true,
+      render: (_, entity) => (
+        <span>
+          {entity.status ? t("user.status.active") : t("user.status.inactive")}
+        </span>
+      ),
     },
   ];
   return (
     <ProTable<User>
-      headerTitle="User Management"
+      headerTitle={t("user.title")}
       columns={columns}
       rowKey="id"
       search={{
@@ -96,6 +96,11 @@ export default function UserPage() {
         setEmail(null);
       }}
       dataSource={filterUser.slice((page - 1) * pageSize, page * pageSize)}
+      toolBarRender={() => [
+        <Button type="primary" key="switch" onClick={switchLocale}>
+          {t("actions.switchLang")}
+        </Button>,
+      ]}
     />
   );
 }

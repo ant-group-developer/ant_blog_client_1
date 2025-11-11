@@ -1,3 +1,4 @@
+import I18nProvider from "@/src/I18nProvider";
 import { NextIntlClientProvider } from "next-intl";
 import { NuqsAdapter } from "nuqs/adapters/next";
 
@@ -9,9 +10,9 @@ export default async function RootLayout({ children }: Props) {
   return (
     <html>
       <body>
-        <NextIntlClientProvider>
+        <I18nProvider>
           <NuqsAdapter>{children}</NuqsAdapter>
-        </NextIntlClientProvider>
+        </I18nProvider>
       </body>
     </html>
   );

@@ -4,6 +4,7 @@ import { ReactNode, useState } from "react";
 import { ProLayout, ProLayoutProps } from "@ant-design/pro-components";
 import { usePathname, useRouter } from "next/navigation";
 import { MenuProps } from "antd";
+import { ChartColumnStacked, User, UserRoundPen } from "lucide-react";
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -14,12 +15,15 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
 
-  // Menu items
   const menuItems: ProLayoutProps["route"] = {
     children: [
-      { path: "/admin/users", name: "Users" },
-      { path: "/admin/categories", name: "Categories" },
-      { path: "/admin/posts", name: "Posts" },
+      { path: "/admin/users", name: "Users", icon: <User size={18} /> },
+      {
+        path: "/admin/categories",
+        name: "Categories",
+        icon: <ChartColumnStacked size={18} />,
+      },
+      { path: "/admin/posts", name: "Posts", icon: <UserRoundPen size={18} /> },
     ],
   };
 

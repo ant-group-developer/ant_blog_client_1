@@ -1,5 +1,29 @@
 {
-  "UsersPage": {
-    "title": "Hello world!"
+  "user": {
+    "title": "User Management",
+    "columns": {
+      "id": "ID",
+      "email": "Email",
+      "created_at": "Created At",
+      "status": "Status"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    }
+  },
+
+  "category": {
+    "title": "Category Management",
+    "columns": {
+      "id": "ID",
+      "name": "Name",
+      "created_at": "Created at",
+      "slug": "Slug",
+      "order": "Order"
+    }
+  },
+  "actions": {
+    "switchLang": "Switch language"
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { parseAsInteger, parseAsString } from "@/lib/parser/parser";
-import { I18nContext } from "@/src/I18nProvider";
+import { I18nContext } from "@/src/i18n-provider";
 import { Category, mockCategories } from "@/src/mocks/category";
 import { ProColumns, ProTable } from "@ant-design/pro-components";
 import { Button } from "antd";

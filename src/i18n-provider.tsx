@@ -4,6 +4,8 @@ import React, { ReactNode, useState, useEffect } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import en from "@/src/i18n/messages/en.json";
 import vi from "@/src/i18n/messages/vi.json";
+import { ConfigProvider } from "antd";
+import enUS from "antd/es/calendar/locale/en_US";
 
 type Locale = "en" | "vi";
 const messages = { en, vi };

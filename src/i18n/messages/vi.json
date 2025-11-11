@@ -1,15 +1,22 @@
 {
-  "user":{
+  "user": {
     "title": "Quản lý người dùng",
     "columns": {
       "id": "Mã",
       "email": "Email",
       "created_at": "Ngày tạo",
+      "updated_at": "Ngày cập nhật",
+      "creator": "Người tạo",
+      "modifier": "Người cập nhật",
       "status": "Trạng thái"
     },
     "status": {
       "active": "Hoạt động",
       "inactive": "Không hoạt động"
+    },
+    "messages": {
+      "fetchFailed": "Không thể tải danh sách người dùng",
+      "noData": "Không có người dùng nào"
     }
   },
 
@@ -17,13 +24,53 @@
     "title": "Quản lý danh mục",
     "columns": {
       "id": "Mã",
-      "name": "Tên danh mục",
+      "name": "Tên",
       "created_at": "Ngày tạo",
       "slug": "Slug",
       "order": "Thứ tự"
+    },
+    "messages": {
+      "fetchFailed": "Không thể tải danh mục"
     }
   },
+
+  "post": {
+    "title": "Quản lý bài viết",
+    "columns": {
+      "id": "Mã",
+      "title": "Tiêu đề",
+      "created_at": "Ngày tạo",
+      "creator_id": "Người tạo",
+      "category_id": "Danh mục",
+      "description": "Mô tả",
+      "slug": "Slug"
+    },
+    "messages": {
+      "fetchFailed": "Không thể tải bài viết"
+    }
+  },
+
   "actions": {
-    "switchLang": "Đổi ngôn ngữ"
+    "switchLang": "Chuyển ngôn ngữ",
+    "save": "Lưu",
+    "cancel": "Huỷ",
+    "delete": "Xoá",
+    "confirmDelete": "Bạn có chắc muốn xoá mục này?"
+  },
+
+  "login": {
+    "title": "Đăng nhập",
+    "emailRequired": "Vui lòng nhập email",
+    "passwordRequired": "Vui lòng nhập mật khẩu",
+    "loginSuccess": "Đăng nhập thành công!",
+    "loginFailed": "Email hoặc mật khẩu không đúng",
+    "loggingIn": "Đang đăng nhập..."
+  },
+
+  "common": {
+    "loading": "Đang tải...",
+    "error": "Đã xảy ra lỗi",
+    "networkError": "Lỗi kết nối. Vui lòng thử lại sau.",
+    "notFound": "Không tìm thấy dữ liệu"
   }
 }

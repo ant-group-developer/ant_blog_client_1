@@ -4,12 +4,19 @@
     "columns": {
       "id": "ID",
       "email": "Email",
-      "created_at": "Created At",
+      "created_at": "Created at",
+      "updated_at": "Updated at",
+      "creator": "Creator",
+      "modifier": "Modifier",
       "status": "Status"
     },
     "status": {
       "active": "Active",
       "inactive": "Inactive"
+    },
+    "messages": {
+      "fetchFailed": "Failed to load users",
+      "noData": "No users found"
     }
   },
 
@@ -18,12 +25,53 @@
     "columns": {
       "id": "ID",
       "name": "Name",
-      "created_at": "Created at",
+      "created_at": "Created At",
       "slug": "Slug",
       "order": "Order"
+    },
+    "messages": {
+      "fetchFailed": "Failed to load categories"
     }
   },
+
+  "post": {
+    "title": "Post Management",
+    "columns": {
+      "id": "ID",
+      "title": "Title",
+      "created_at": "Created At",
+      "creator_id": "User",
+      "category_id": "Category",
+      "description": "Description",
+      "slug": "Slug"
+    },
+    "messages": {
+      "fetchFailed": "Failed to load posts"
+    }
+  },
+
   "actions": {
-    "switchLang": "Switch language"
+    "switchLang": "Switch Language",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "confirmDelete": "Are you sure you want to delete this item?"
+  },
+
+  "login": {
+    "title": "Login",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "loginSuccess": "Login successful!",
+    "loginFailed": "Invalid email or password",
+    "loggingIn": "Logging in..."
+  },
+
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "networkError": "Network error. Please try again later.",
+    "notFound": "No data found",
+    "authen": "User not authenticated"
   }
 }

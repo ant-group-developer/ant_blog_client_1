@@ -9,7 +9,7 @@ export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (pathname === "/") {
-    return NextResponse.redirect(new URL("/admin/users", req.url));
+    return NextResponse.redirect(new URL("/auth/login", req.url));
   }
 
   return nextIntlMiddleware(req);

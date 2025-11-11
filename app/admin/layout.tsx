@@ -5,6 +5,7 @@ import { ProLayout, ProLayoutProps } from "@ant-design/pro-components";
 import { usePathname, useRouter } from "next/navigation";
 import { MenuProps } from "antd";
 import { ChartColumnStacked, User, UserRoundPen } from "lucide-react";
+import { APP_ROUTES } from "@/enums/routes";
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -17,13 +18,17 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
   const menuItems: ProLayoutProps["route"] = {
     children: [
-      { path: "/admin/users", name: "Users", icon: <User size={18} /> },
+      { path: APP_ROUTES.USER, name: "Users", icon: <User size={18} /> },
       {
-        path: "/admin/categories",
+        path: APP_ROUTES.CATEGORY,
         name: "Categories",
         icon: <ChartColumnStacked size={18} />,
       },
-      { path: "/admin/posts", name: "Posts", icon: <UserRoundPen size={18} /> },
+      {
+        path: APP_ROUTES.POST,
+        name: "Posts",
+        icon: <UserRoundPen size={18} />,
+      },
     ],
   };
 

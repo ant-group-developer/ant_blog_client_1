@@ -2,13 +2,11 @@ import { API_BASE_URL } from "@/api";
 import Cookies from "js-cookie";
 
 export interface User {
-  id: string; // theo data thực tế UUID
+  id: string; 
   email: string;
   created_at: string;
   updated_at: string;
   status: boolean;
-
-  // Thêm các trường meta
   creator_id: string;
   modifier_id: string;
   creator_name?: string;

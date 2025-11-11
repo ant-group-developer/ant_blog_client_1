@@ -2,9 +2,6 @@
 
 import { parseAsInteger, parseAsString } from "@/lib/parser/parser";
 import { I18nContext } from "@/src/i18n-provider";
-import { mockPost, Post } from "@/src/mocks/post";
-import { Category, mockCategories } from "@/src/mocks/category";
-import { mockUsers, User } from "@/src/mocks/users";
 import { ProColumns, ProTable } from "@ant-design/pro-components";
 import { Button } from "antd";
 import { useTranslations } from "next-intl";

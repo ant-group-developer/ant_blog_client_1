@@ -12,7 +12,7 @@ const messages = { en, vi };
 
 export const I18nContext = React.createContext<{
   locale: Locale;
-  switchLocale: () => void;
+  switchLocale: (locale?: Locale) => void;
 }>({ locale: "en", switchLocale: () => {} });
 
 export default function I18nProvider({ children }: { children: ReactNode }) {
@@ -25,8 +25,8 @@ export default function I18nProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const switchLocale = () => {
-    const next = locale === "en" ? "vi" : "en";
+  const switchLocale = (nextLocale?: Locale) => {
+    const next = nextLocale || (locale === "en" ? "vi" : "en");
     setLocale(next);
     localStorage.setItem("locale", next);
   };

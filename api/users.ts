@@ -2,7 +2,7 @@ import { API_BASE_URL } from "@/api";
 import Cookies from "js-cookie";
 
 export interface User {
-  id: string; 
+  id: string;
   email: string;
   created_at: string;
   updated_at: string;
@@ -11,11 +11,25 @@ export interface User {
   modifier_id: string;
   creator_name?: string;
   modifier_name?: string;
+  password: string;
 }
+
+type CreateUserInput = {
+  email: string;
+  password: string;
+  status?: boolean;
+  creator_id?: string;
+  modifier_id?: string;
+};
 
 export interface UsersResponse {
   data: User[];
-  total: number;
+  pagination: {
+    page: number;
+    pageSize: number;
+    totalItem: number;
+    totalPage: number;
+  };
 }
 
 export const fetchUsers = async (params: {
@@ -30,12 +44,9 @@ export const fetchUsers = async (params: {
   });
 
   const token = Cookies.get("token");
+  if (!token) throw new Error("User not authenticated");
 
-  if (!token) {
-    throw new Error("User not authenticated");
-  }
-
-  const res = await fetch(`${API_BASE_URL}/cms/users`, {
+  const res = await fetch(`${API_BASE_URL}/cms/users?${query.toString()}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -51,9 +62,8 @@ export const fetchUsers = async (params: {
   return res.json();
 };
 
-export const createUser = async (
-  user: Omit<User, "id" | "created_at" | "updated_at">
-): Promise<User> => {
+
+export const createUser = async (user: CreateUserInput): Promise<User> => {
   const token = Cookies.get("token");
   if (!token) throw new Error("User not authenticated");
 

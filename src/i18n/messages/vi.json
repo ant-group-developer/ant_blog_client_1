@@ -8,7 +8,8 @@
       "updated_at": "Ngày cập nhật",
       "creator": "Người tạo",
       "modifier": "Người cập nhật",
-      "status": "Trạng thái"
+      "status": "Trạng thái",
+      "password": "Mật khẩu"
     },
     "status": {
       "active": "Hoạt động",
@@ -16,6 +17,8 @@
     },
     "messages": {
       "fetchFailed": "Không thể tải danh sách người dùng",
+      "createSuccess": "Tạo mới thất bại",
+      "createFailed": "Tạo mới thành công",
       "noData": "Không có người dùng nào"
     }
   },
@@ -26,6 +29,9 @@
       "id": "Mã",
       "name": "Tên",
       "created_at": "Ngày tạo",
+      "updated_at": "Ngày cập nhật",
+      "creator": "Người tạo",
+      "modifier": "Người cập nhật",
       "slug": "Slug",
       "order": "Thứ tự"
     },
@@ -40,7 +46,9 @@
       "id": "Mã",
       "title": "Tiêu đề",
       "created_at": "Ngày tạo",
+      "updated_at": "Ngày cập nhật",
       "creator_id": "Người tạo",
+      "modifier": "Người cập nhật",
       "category_id": "Danh mục",
       "description": "Mô tả",
       "slug": "Slug"
@@ -52,6 +60,7 @@
 
   "actions": {
     "switchLang": "Chuyển ngôn ngữ",
+    "create": "Tạo mới",
     "save": "Lưu",
     "cancel": "Huỷ",
     "delete": "Xoá",

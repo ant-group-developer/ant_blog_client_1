@@ -11,9 +11,14 @@ import { startTransition, useContext, useMemo, useEffect } from "react";
 import "@ant-design/v5-patch-for-react-19";
 import { useQuery } from "@tanstack/react-query";
 
+interface CategoryWithMeta extends Category {
+  creator_name?: string;
+  modifier_name?: string;
+}
+
 export default function CategoriesPage() {
   const { message } = App.useApp();
-  const { locale, switchLocale } = useContext(I18nContext);
+  const { locale } = useContext(I18nContext);
   const t = useTranslations();
 
   // Query state for URL
@@ -38,24 +43,22 @@ export default function CategoriesPage() {
     }
   }, [isError, message, t]);
 
-  // Filter client-side giống UserPage search
+  // Map creator/modifier name + filter
   const filteredData = useMemo(() => {
-    return (
-      data?.data.filter((c) => {
-        if (!name) return true;
-        return c[nameField].toLowerCase().includes(name.toLowerCase());
-      }) ?? []
-    );
+    const list: CategoryWithMeta[] =
+      data?.data.map((c) => ({
+        ...c,
+        creator_name: c.creator?.email ?? c.creator_id,
+        modifier_name: c.modifier?.email ?? c.modifier_id,
+      })) ?? [];
+
+    return list.filter((c) => {
+      if (!name) return true;
+      return c[nameField].toLowerCase().includes(name.toLowerCase());
+    });
   }, [data, name, nameField]);
 
-  const columns: ProColumns<Category>[] = [
-    {
-      title: t("category.columns.id"),
-      dataIndex: "id",
-      hideInSearch: true,
-      hideInForm: true,
-      width: 80,
-    },
+  const columns: ProColumns<CategoryWithMeta>[] = [
     {
       title: t("category.columns.name"),
       dataIndex: nameField,
@@ -66,6 +69,22 @@ export default function CategoriesPage() {
       dataIndex: "created_at",
       hideInSearch: true,
       render: (_, record) => new Date(record.created_at).toLocaleString(),
+    },
+    {
+      title: t("category.columns.updated_at"),
+      dataIndex: "updated_at",
+      hideInSearch: true,
+      render: (_, record) => new Date(record.updated_at).toLocaleString(),
+    },
+    {
+      title: t("category.columns.creator"),
+      dataIndex: "creator_name",
+      hideInSearch: true,
+    },
+    {
+      title: t("category.columns.modifier"),
+      dataIndex: "modifier_name",
+      hideInSearch: true,
     },
     {
       title: t("category.columns.slug"),
@@ -80,8 +99,7 @@ export default function CategoriesPage() {
   ];
 
   return (
-    <ProTable<Category>
-      headerTitle={t("category.title")}
+    <ProTable<CategoryWithMeta>
       columns={columns}
       rowKey="id"
       search={{ labelWidth: "auto" }}
@@ -99,7 +117,7 @@ export default function CategoriesPage() {
       onSubmit={(values) => {
         startTransition(() => {
           setName(values.name ?? null);
-          setPage(1); // reset page on search
+          setPage(1);
         });
       }}
       onReset={() => {
@@ -107,11 +125,6 @@ export default function CategoriesPage() {
         setPage(1);
       }}
       dataSource={filteredData.slice((page - 1) * pageSize, page * pageSize)}
-      toolBarRender={() => [
-        <Button type="primary" key="switch" onClick={switchLocale}>
-          {t("actions.switchLang")}
-        </Button>,
-      ]}
     />
   );
 }

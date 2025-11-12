@@ -8,7 +8,8 @@
       "updated_at": "Updated at",
       "creator": "Creator",
       "modifier": "Modifier",
-      "status": "Status"
+      "status": "Status",
+      "password": "Password"
     },
     "status": {
       "active": "Active",
@@ -16,6 +17,8 @@
     },
     "messages": {
       "fetchFailed": "Failed to load users",
+      "createSuccess": "Create successfully",
+      "createFailed": "Failed to create new",
       "noData": "No users found"
     }
   },
@@ -26,6 +29,9 @@
       "id": "ID",
       "name": "Name",
       "created_at": "Created At",
+      "updated_at": "Updated at",
+      "creator": "Creator",
+      "modifier": "Modifier",
       "slug": "Slug",
       "order": "Order"
     },
@@ -40,7 +46,9 @@
       "id": "ID",
       "title": "Title",
       "created_at": "Created At",
+      "updated_at": "Updated at",
       "creator_id": "User",
+      "modifier": "Modifier",
       "category_id": "Category",
       "description": "Description",
       "slug": "Slug"
@@ -52,6 +60,7 @@
 
   "actions": {
     "switchLang": "Switch Language",
+    "create": "Create new",
     "save": "Save",
     "cancel": "Cancel",
     "delete": "Delete",

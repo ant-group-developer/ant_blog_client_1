@@ -8,8 +8,8 @@ export interface UserMeta {
 
 export interface Category {
   id: string;
-  created_at: string; // ISO date string
-  updated_at: string; // ISO date string
+  created_at: string; 
+  updated_at: string; 
   creator_id: string;
   modifier_id: string;
   slug: string;
@@ -40,13 +40,16 @@ export const fetchCategory = async (params: {
     throw new Error("User not authenticated");
   }
 
-  const res = await fetch(`${API_BASE_URL}/cms/categories`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const res = await fetch(
+    `${API_BASE_URL}/cms/categories?${query.toString()}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
   if (!res.ok) {
     const err = await res.json().catch(() => {});

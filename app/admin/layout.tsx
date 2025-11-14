@@ -7,13 +7,7 @@ import {
   ProLayoutProps,
 } from "@ant-design/pro-components";
 import { Dropdown, MenuProps } from "antd";
-import {
-  ChartColumnStacked,
-  User,
-  UserRoundPen,
-  Settings,
-  LogOut,
-} from "lucide-react";
+import { ChartColumnStacked, User, UserRoundPen } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { APP_ROUTES } from "@/enums/routes";
 import Image from "next/image";
@@ -78,7 +72,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       layout="mix"
       fixSiderbar
       contentWidth="Fluid"
-      headerTitleRender={(logo, title) => (
+      headerTitleRender={() => (
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <Image
             src="https://github.com/ant-design.png"

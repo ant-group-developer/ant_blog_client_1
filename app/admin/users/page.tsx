@@ -1,5 +1,9 @@
 // src/app/users/page.tsx (hoặc file tương tự)
 "use client";
+"use client";
+
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 import { useState, useEffect, useMemo } from "react";
 import { App, Button, Modal } from "antd";
@@ -42,7 +46,6 @@ export default function UserPage() {
     queryKey: ["users", page, pageSize],
     queryFn: () => fetchUsers({ page, pageSize }),
   });
-  
 
   const { mutateAsync: createUserMutate } = useMutation({
     mutationFn: createUser,

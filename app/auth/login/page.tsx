@@ -60,9 +60,7 @@ export default function LoginPage() {
       const token = loginData.data?.access_token;
       if (!token) throw new Error("Token not returned from API");
 
-      // Lưu cookie client-side hoặc localStorage
       Cookies.set("token", token, { expires: 1, path: "/" });
-      // localStorage.setItem("token", token);
 
       return loginData;
     },

@@ -8,8 +8,8 @@ export interface UserMeta {
 
 export interface Category {
   id: string;
-  created_at: string; 
-  updated_at: string; 
+  created_at: string;
+  updated_at: string;
   creator_id: string;
   modifier_id: string;
   slug: string;
@@ -25,6 +25,18 @@ export interface CategoryResponse {
   total: number;
 }
 
+export type UpdateCategoryInput = {
+  name_en: string;
+  name_vi: string;
+  slug: string;
+  order: number;
+};
+
+export type CategoryOrderInput = {
+  order: number;
+};
+
+// Fetch categories
 export const fetchCategory = async (params: {
   page: number;
   pageSize: number;
@@ -35,25 +47,119 @@ export const fetchCategory = async (params: {
   });
 
   const token = Cookies.get("token");
+  if (!token) throw new Error("User not authenticated");
 
-  if (!token) {
-    throw new Error("User not authenticated");
-  }
-
-  const res = await fetch(
-    `${API_BASE_URL}/cms/categories?${query.toString()}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const res = await fetch(`${API_BASE_URL}/cms/categories`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   if (!res.ok) {
-    const err = await res.json().catch(() => {});
+    const err = await res.json().catch(() => ({}));
     throw new Error(err.message || "Failed to fetch categories");
+  }
+
+  return res.json();
+};
+
+export const createCategory = async (data: {
+  name_en: string;
+  name_vi: string;
+  slug: string;
+  order: number;
+}): Promise<Category> => {
+  const token = Cookies.get("token");
+  if (!token) throw new Error("User not authenticated");
+
+  const res = await fetch(`${API_BASE_URL}/cms/categories`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "Failed to create category");
+  }
+
+  return res.json();
+};
+
+export const updateCategory = async (
+  id: string,
+  data: {
+    name_en: string;
+    name_vi: string;
+    slug: string;
+    order: number;
+  }
+): Promise<Category> => {
+  const token = Cookies.get("token");
+  if (!token) throw new Error("User not authenticated");
+
+  const res = await fetch(`${API_BASE_URL}/cms/categories/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "Failed to update category");
+  }
+
+  return res.json();
+};
+
+export const updateCategoryOrder = async (data: {
+  id: string;
+  order: number;
+}): Promise<Category> => {
+  const token = Cookies.get("token");
+  if (!token) throw new Error("User not authenticated");
+
+  const res = await fetch(`${API_BASE_URL}/cms/categories/order`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "Failed to update category");
+  }
+
+  return res.json();
+};
+
+export const deleteCategory = async (
+  id: string
+): Promise<{ message: string }> => {
+  const token = Cookies.get("token");
+  if (!token) throw new Error("User not authenticated");
+
+  const res = await fetch(`${API_BASE_URL}/cms/categories/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "Failed to delete category");
   }
 
   return res.json();

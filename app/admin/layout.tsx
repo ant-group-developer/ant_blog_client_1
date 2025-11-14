@@ -30,9 +30,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const { locale, switchLocale } = useContext(I18nContext);
 
   const headerTitles: Record<string, string> = {
-    [APP_ROUTES.USER]: "User Management",
-    [APP_ROUTES.CATEGORY]: "Category Management",
-    [APP_ROUTES.POST]: "Post Management",
+    [APP_ROUTES.USER]:
+      locale === "en" ? "User Management" : "Quản lý người dùng",
+    [APP_ROUTES.CATEGORY]:
+      locale === "en" ? "Category Management" : "Quản lý danh mục",
+    [APP_ROUTES.POST]: locale === "en" ? "Post Management" : "Quản lý bài đăng",
   };
 
   const menuItems: ProLayoutProps["route"] = {

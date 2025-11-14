@@ -35,12 +35,10 @@ export interface UsersResponse {
 export const fetchUsers = async (params: {
   page: number;
   pageSize: number;
-  email?: string | null;
 }): Promise<UsersResponse> => {
   const query = new URLSearchParams({
     page: params.page.toString(),
     pageSize: params.pageSize.toString(),
-    ...(params.email ? { email: params.email } : {}),
   });
 
   const token = Cookies.get("token");
@@ -61,7 +59,6 @@ export const fetchUsers = async (params: {
 
   return res.json();
 };
-
 
 export const createUser = async (user: CreateUserInput): Promise<User> => {
   const token = Cookies.get("token");

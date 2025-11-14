@@ -36,7 +36,13 @@
       "order": "Order"
     },
     "messages": {
-      "fetchFailed": "Failed to load categories"
+      "fetchFailed": "Failed to load categories",
+      "createSuccess": "Create successfully",
+      "updateSuccess": "Update successfully",
+      "updateFailed": "Failed to update",
+      "createFailed": "Failed to create new",
+      "deleteSuccess": "Delete successfully",
+      "deleteFailed": "Failed to delete"
     }
   },
 
@@ -51,19 +57,29 @@
       "modifier": "Modifier",
       "category_id": "Category",
       "description": "Description",
+      "content": "Content",
       "slug": "Slug"
     },
     "messages": {
-      "fetchFailed": "Failed to load posts"
+      "fetchFailed": "Failed to load posts",
+      "createSuccess": "Create successfully",
+      "createFailed": "Failed to create new",
+      "updateSuccess": "Update successfully",
+      "updateFailed": "Failed to update",
+      "deleteSuccess": "Delete successfully",
+      "deleteFailed": "Failed to delete",
+      "detail": "Detail"
     }
   },
 
   "actions": {
-    "switchLang": "Switch Language",
+    "title":"Action",
     "create": "Create new",
+    "edit": "Edit",
     "save": "Save",
     "cancel": "Cancel",
     "delete": "Delete",
+    "close": "Close",
     "confirmDelete": "Are you sure you want to delete this item?"
   },
 

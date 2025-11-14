@@ -1,6 +1,7 @@
+// src/app/users/page.tsx (hoặc file tương tự)
 "use client";
 
-import { useState, useEffect, useMemo, startTransition } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { App, Button, Modal } from "antd";
 import {
   ProTable,
@@ -30,14 +31,18 @@ export default function UserPage() {
     "pageSize",
     parseAsInteger.withDefault(10)
   );
-  const [email, setEmail] = useQueryState("email", parseAsString);
+  const [searchEmail, setSearchEmail] = useQueryState(
+    "email",
+    parseAsString.withDefault("")
+  );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["users", page, pageSize, email],
-    queryFn: () => fetchUsers({ page, pageSize, email }),
+    queryKey: ["users", page, pageSize],
+    queryFn: () => fetchUsers({ page, pageSize }),
   });
+  
 
   const { mutateAsync: createUserMutate } = useMutation({
     mutationFn: createUser,
@@ -61,30 +66,44 @@ export default function UserPage() {
       map[u.id] = u.email;
     });
     return map;
-  }, [data]);
+  }, [data?.data]);
 
-  const mappedData: UserWithMeta[] = useMemo(() => {
-    return (
-      data?.data.map((u) => ({
-        ...u,
-        creator_name: userMap[u.creator_id] || u.creator_id,
-        modifier_name: userMap[u.modifier_id] || u.modifier_id,
-      })) ?? []
-    );
-  }, [data, userMap]);
+  const filteredData: UserWithMeta[] = useMemo(() => {
+    const raw = data?.data ?? [];
+
+    const filtered = searchEmail
+      ? raw.filter((u) =>
+          u.email.toLowerCase().includes(searchEmail.toLowerCase())
+        )
+      : raw;
+
+    return filtered.map((u) => ({
+      ...u,
+      creator_name: userMap[u.creator_id ?? ""] ?? u.creator_id,
+      modifier_name: userMap[u.modifier_id ?? ""] ?? u.modifier_id,
+    }));
+  }, [data?.data, searchEmail, userMap]);
+
+  const totalAfterFilter = useMemo(() => {
+    return searchEmail
+      ? (data?.data ?? []).filter((u) =>
+          u.email.toLowerCase().includes(searchEmail.toLowerCase())
+        ).length
+      : data?.pagination?.totalItem ?? 0;
+  }, [data?.data, data?.pagination?.totalItem, searchEmail]);
 
   const columns: ProColumns<UserWithMeta>[] = [
     { title: t("user.columns.email"), dataIndex: "email" },
     {
       title: t("user.columns.created_at"),
       dataIndex: "created_at",
-      render: (_, e) => new Date(e.created_at).toLocaleString(),
+      render: (_, r) => new Date(r.created_at).toLocaleString(),
       hideInSearch: true,
     },
     {
       title: t("user.columns.updated_at"),
       dataIndex: "updated_at",
-      render: (_, e) => new Date(e.updated_at).toLocaleString(),
+      render: (_, r) => new Date(r.updated_at).toLocaleString(),
       hideInSearch: true,
     },
     {
@@ -100,8 +119,8 @@ export default function UserPage() {
     {
       title: t("user.columns.status"),
       dataIndex: "status",
-      render: (_, e) =>
-        e.status ? t("user.status.active") : t("user.status.inactive"),
+      render: (_, r) =>
+        r.status ? t("user.status.active") : t("user.status.inactive"),
       hideInSearch: true,
     },
   ];
@@ -112,23 +131,28 @@ export default function UserPage() {
         columns={columns}
         loading={isLoading}
         rowKey="id"
-        dataSource={mappedData}
-        search={{ labelWidth: "auto" }}
+        dataSource={filteredData}
+        search={{
+          labelWidth: "auto",
+        }}
         pagination={{
           current: page,
           pageSize,
-          total: data?.pagination?.totalItem ?? 0,
+          total: totalAfterFilter,
           onChange: (p, ps) => {
             setPage(p);
-            setPageSize(ps);
+            if (ps) setPageSize(ps);
           },
         }}
         onSubmit={(values) => {
-          startTransition(() => {
-            setEmail(values.email ?? null);
-          });
+          const emailVal = (values.email ?? "").trim();
+          setSearchEmail(emailVal || null);
+          setPage(1);
         }}
-        onReset={() => setEmail(null)}
+        onReset={() => {
+          setSearchEmail(null);
+          setPage(1);
+        }}
         toolBarRender={() => [
           <Button
             key="create"

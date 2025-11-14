@@ -36,7 +36,13 @@
       "order": "Thứ tự"
     },
     "messages": {
-      "fetchFailed": "Không thể tải danh mục"
+      "fetchFailed": "Không thể tải danh mục",
+      "createSuccess": "Tạo mới thành công",
+      "createFailed": "Tạo mới thất bại",
+      "updateSuccess": "Cập nhật thành công",
+      "updateFailed": "Cập nhật thất bại",
+      "deleteSuccess": "Xóa thành công",
+      "deleteFailed": "Xóa thất bại"
     }
   },
 
@@ -51,18 +57,28 @@
       "modifier": "Người cập nhật",
       "category_id": "Danh mục",
       "description": "Mô tả",
+      "content": "Nội dung",
       "slug": "Slug"
     },
     "messages": {
-      "fetchFailed": "Không thể tải bài viết"
+      "fetchFailed": "Không thể tải bài viết",
+      "createSuccess": "Tạo mới thành công",
+      "createFailed": "Tạo mới thất bại",
+      "updateSuccess": "Cập nhật thành công",
+      "updateFailed": "Cập nhật thất bại",
+      "deleteSuccess": "Xóa thành công",
+      "deleteFailed": "Xóa thất bại",
+      "detail": "Chi tiết"
     }
   },
 
   "actions": {
-    "switchLang": "Chuyển ngôn ngữ",
+    "title": "Hành động",
     "create": "Tạo mới",
+    "edit": "Chỉnh sửa",
     "save": "Lưu",
     "cancel": "Huỷ",
+    "close": "Đóng",
     "delete": "Xoá",
     "confirmDelete": "Bạn có chắc muốn xoá mục này?"
   },

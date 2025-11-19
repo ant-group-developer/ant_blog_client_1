@@ -3,4 +3,5 @@ export enum APP_ROUTES {
   CATEGORY = "/admin/categories",
   POST = "/admin/posts",
   AUTH = "/auth/login",
+  TREE = "/admin/tree-table",
 }

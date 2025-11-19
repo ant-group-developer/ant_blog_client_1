@@ -45,6 +45,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         name: "Posts",
         icon: <UserRoundPen size={16} />,
       },
+      {
+        path: APP_ROUTES.TREE,
+        name: "Tree table",
+      },
     ],
   };
 
